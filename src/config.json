@@ -1,5 +1,5 @@
 {
   "api": { 
-    "invokeUrl": ""
+    "invokeUrl": "https://3d64u33llf.execute-api.eu-west-2.amazonaws.com/prod"
   } 
 }
