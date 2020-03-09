@@ -51,3 +51,7 @@ h1 {
 body {
   visibility: visible !important;
 }
+
+.buttons {
+  margin-left: 1em;
+}
