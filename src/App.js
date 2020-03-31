@@ -30,13 +30,14 @@ class App extends Component {
     this.loadFacebookSDK();
 
     try {
-      const res = await Auth.currentAuthenticatedUser();
-      console.log(res);
-      this.userHasAuthenticated(true);
-    } catch (e) {
-      if (e !== "not authenticated") {
-        alert(e);
-      }
+      const session = await Auth.currentSession();
+      console.log(session);
+      this.setAuthStatus(true);
+      const user = await Auth.currentAuthenticatedUser();
+      console.log(user);
+      this.setUser(user);
+    } catch (error) {
+      console.log(error);
     }
 
     this.setState({ isAuthenticating: false });

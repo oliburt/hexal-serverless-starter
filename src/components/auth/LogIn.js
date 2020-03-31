@@ -40,7 +40,6 @@ class LogIn extends Component {
     const { username, password } = this.state;
     try {
       const user = await Auth.signIn(username, password);
-      console.log(user);
       this.props.auth.setAuthStatus(true);
       this.props.auth.setUser(user);
       this.props.history.push("/");
