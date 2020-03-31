@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
-import FormErrors from '../FormErrors';
-import Validate from '../utility/FormValidation';
-import { Auth } from 'aws-amplify';
+import React, { Component } from "react";
+import FormErrors from "../FormErrors";
+import Validate from "../utility/FormValidation";
+import { Auth, Cache } from "aws-amplify";
+import FacebookLoaderButton from "../FacebookLoaderButton";
+// Run this after the sign-in
 
 class LogIn extends Component {
   state = {
-    username: '',
-    password: '',
+    username: "",
+    password: "",
     errors: {
       cognito: null,
       blankfield: false
@@ -41,7 +43,7 @@ class LogIn extends Component {
       console.log(user);
       this.props.auth.setAuthStatus(true);
       this.props.auth.setUser(user);
-      this.props.history.push('/');
+      this.props.history.push("/");
     } catch (error) {
       const err = !error.message ? { message: error } : error;
       this.setState({
@@ -57,12 +59,20 @@ class LogIn extends Component {
     this.setState({
       [event.target.id]: event.target.value
     });
-    document.getElementById(event.target.id).classList.remove('is-danger');
+    document.getElementById(event.target.id).classList.remove("is-danger");
+  };
+
+  handleFBLogin = res => {
+    console.log(res);
+    const federatedInfo = Cache.getItem("federatedInfo");
+    const { token } = federatedInfo;
+    console.log(token);
   };
 
   render() {
     return (
       <section className="section auth">
+        <FacebookLoaderButton onLogin={this.handleFBLogin} />
         <div className="container">
           <h1>Log in</h1>
           <FormErrors formerrors={this.state.errors} />
